@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 
 namespace TranslateService.Presentation.Extensions;
 
-public static class PresentationExtensions
+public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddPresentation(
         this IServiceCollection services,

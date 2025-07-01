@@ -29,7 +29,7 @@ public class TranslationEntityConfiguration : IEntityTypeConfiguration<Translati
 
         builder.Property(t => t.Text)
             .HasColumnName("text")
-            .IsRequired();
+            .IsRequired(false);
 
         builder.HasOne(t => t.LocalizationKey)
             .WithMany(lk => lk.Translations)
