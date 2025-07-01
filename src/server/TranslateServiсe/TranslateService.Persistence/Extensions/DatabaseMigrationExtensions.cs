@@ -10,9 +10,9 @@ public static class DatabaseMigrationExtensions
     {
         using IServiceScope scope = app.ApplicationServices.CreateAsyncScope();
 
-        using ApplicationDbContext productServiceDbContext =
+        using ApplicationDbContext translateServiceDbContext =
             scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        productServiceDbContext.Database.Migrate();
+        translateServiceDbContext.Database.Migrate();
     }
 }
