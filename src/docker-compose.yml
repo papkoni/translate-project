@@ -1,0 +1,32 @@
+services:
+  translate-service-postgres:
+    container_name: translate-service-postgres
+    image: postgres:alpine
+    mem_limit: 512m
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+      POSTGRES_DB: translation
+    volumes:
+      - translate-service-postgres-data:/var/lib/postgresql/data
+      
+  translate-service:
+    container_name: translate-service
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: server/TranslateService/TranslateService.Presentation/Dockerfile
+    ports:
+      - "7101:7001"
+    environment:
+      - APP_PORT=7001
+      - ASPNETCORE_ENVIRONMENT=Production
+      - CONNECTION_STRING=Host=translate-service-postgres;Port=5432;Database=translation;Username=postgres;Password=1;Timezone=Europe/Minsk;
+    depends_on:
+      - translate-service-postgres
+
+volumes:
+  translate-service-postgres-data:
